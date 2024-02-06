@@ -5,6 +5,6 @@ router.post('/',checkToken,createUser);//to create a new user
 router.get('/',checkToken,getUsers);//to get all the users
 router.get('/:id',checkToken,getUserByUserId);//to get a single user by id
 router.patch('/',checkToken,updateUser);//to update a user
-router.delete('/',checkToken,deleteUser);//to delete a user
+router.delete('/:id',checkToken,deleteUser);//to delete a user
 router.post('/login',login);//to login a user
 module.exports=router;//to export the router object

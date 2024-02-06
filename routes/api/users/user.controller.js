@@ -73,27 +73,27 @@ module.exports = {
             });
         });
     },
-    deleteUser:(req,res)=>{
-        const data=req.body;
-        deleteUser(data,(err,results)=>{//to call the deleteUser method from the user.service file
-            if(err){
+    deleteUser: (req, res) => {
+        const id = req.params.id; // Retrieve id from URL parameters
+        deleteUser({ id }, (err, results) => {
+            if (err) {
                 console.log(err);
                 return;
             }
-            if(!results){
+            if (!results) {
                 return res.json({
-                    success:0,
-                    message:"Record not found"
+                    success: 0,
+                    message: "Record not found"
                 });
             }
             return res.json({
-                success:1,
-                message:"user deleted successfully"
+                success: 1,
+                message: "User deleted successfully"
             });
         });
     },
     login:(req,res)=>{
-        const body=req.body;
+        const body=req.body;//to get the data from the request body
         getUserByUserEmail(body.email,(err,results)=>{//to call the getUserByUserEmail method from the user.service file
             if(err){
                 console.log(err);

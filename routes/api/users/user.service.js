@@ -1,7 +1,14 @@
 const pool=require('../../database');//import the pool object from the database file
 module.exports = {//to export create method
-    create: (data, callBack) => {
-        pool.query(//data
+    create: (data, callBack) => {//It takes two parameters: data and callBack
+        pool.query(//pool.query(sql, values, callback);//callBack:(error, results, fields)
+                    /*
+                    error: An error object. If the query execution encounters an error, this parameter will contain information about the error. If there is no error, this parameter will be null.
+
+                    results: An array containing the results of the query. For queries that modify data (e.g., INSERT, UPDATE), this array may contain information about the affected rows.
+
+                    fields: Metadata about the result set, often used in scenarios where additional information about the columns or rows is needed.
+                    */
         `insert into registration(firstName, lastName,gender,email,password,number)
             values(?,?,?,?,?,?)`,
             [
@@ -12,13 +19,13 @@ module.exports = {//to export create method
                 data.password,
                 data.number
             ],
-            (error, results, fields) => {//callback function
+            (error, results, fields) => {//callback function that handles the result of the query//fields:metadata about the result
                 if (error) {
                     return callBack(error);//if error occurs, return the error to the callback function 
                 }
                 return callBack(null, results);//if no error occurs, return the results of the query to the callback function 
             }
-        );
+        );//to execute the query
 },
 getUser: callBack => {//to get all the users
     pool.query(
@@ -26,9 +33,9 @@ getUser: callBack => {//to get all the users
         [],
         (error, results, fields) => {
             if (error) {
-                return callBack(error);
+                return callBack(error);//if error occurs, return the error to the callback function 
             }
-            return callBack(null, results);
+            return callBack(null, results);//null is returned as there is no error
         }
     )
     },
@@ -72,7 +79,7 @@ deleteUser: (data, callBack) => {
             if (error) {
                 return callBack(error);
             }
-            return callBack(null, results[0]);
+            return callBack(null, results);
         }
     )
 },
@@ -84,7 +91,7 @@ getUserByUserEmail: (email, callBack) => {
             if (error) {
                 return callBack(error);
             }
-            return callBack(null, results[0]);
+            return callBack(null, results);
         }
     )
 }
