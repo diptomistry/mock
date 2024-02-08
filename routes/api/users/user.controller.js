@@ -92,8 +92,10 @@ module.exports = {
             });
         });
     },
+  
     login:(req,res)=>{
         const body=req.body;//to get the data from the request body
+       // console.log(body);
         getUserByUserEmail(body.email,(err,results)=>{//to call the getUserByUserEmail method from the user.service file
             if(err){
                 console.log(err);
@@ -104,6 +106,8 @@ module.exports = {
                     data:"Invalid email or password"
                 });
             }
+            //console.log(results);
+           
             const result=compareSync(body.password,results.password);//to compare the password entered by the user with the password in the database
             if(result){
                 results.password=undefined;//to hide the password from the user
@@ -121,7 +125,7 @@ module.exports = {
                 });
             }
         });
-    }
+    },
     
 
 
